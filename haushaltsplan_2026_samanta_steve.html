@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5efe6">
+<title>Haushaltsplan 2026 - Samanta & Steve</title>
+<style>
+:root{--bg:#f7f1e8;--card:#fffaf3;--ink:#2d2823;--muted:#776c60;--line:#eadfce;--sam:#9c6ade;--samsoft:#f0e6ff;--ste:#27827a;--stesoft:#ddf4ef;--accent:#c47f41;--warn:#b54848;--ok:#2d7a52;--shadow:0 12px 34px rgba(74,55,35,.12)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#fbf6ed 0%,var(--bg) 100%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);padding:18px;padding-bottom:calc(30px + env(safe-area-inset-bottom));}
+.wrap{max-width:980px;margin:0 auto}.hero{background:radial-gradient(circle at top left,#fff 0,#fff8ee 30%,#f3e4cf 100%);border:1px solid var(--line);border-radius:28px;padding:22px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;background:rgba(196,127,65,.13);border-radius:50%}.eyebrow{font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.04em;text-transform:uppercase}.hero h1{font-size:31px;line-height:1.06;margin:8px 0 10px}.hero p{margin:0;color:var(--muted);font-size:16px;line-height:1.4}.toolbar{position:sticky;top:0;z-index:5;margin:16px 0;padding:12px;background:rgba(247,241,232,.92);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 24px rgba(74,55,35,.08);display:grid;gap:10px}.row{display:flex;gap:9px;flex-wrap:wrap}.select,button{appearance:none;border:0;border-radius:15px;padding:12px 14px;font-size:16px;font-weight:700;background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}button{cursor:pointer}.primary{background:var(--accent);color:#fff;box-shadow:none}.ghost{background:#fff}.danger{background:#fff4f4;color:var(--warn)}.select{flex:1;min-width:160px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.stat{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 6px 18px rgba(74,55,35,.06)}.stat b{display:block;font-size:15px}.bar{height:11px;background:#eee3d4;border-radius:20px;overflow:hidden;margin-top:10px}.fill{height:100%;width:0%;border-radius:20px;transition:.25s}.sam .fill{background:var(--sam)}.ste .fill{background:var(--ste)}.monthTitle{margin:22px 2px 12px;font-size:23px}.days{display:grid;gap:12px}.day{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 8px 22px rgba(74,55,35,.08);overflow:hidden}.day.today{outline:3px solid rgba(196,127,65,.34)}.dayHead{display:flex;justify-content:space-between;gap:10px;padding:14px 15px;background:#fff6e8;border-bottom:1px solid var(--line)}.date strong{display:block;font-size:18px}.date span,.mini{color:var(--muted);font-size:13px}.people{display:grid;grid-template-columns:1fr 1fr;gap:0}.person{padding:13px}.person:first-child{border-right:1px solid var(--line)}.person h3{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:7px}.dot{width:12px;height:12px;border-radius:50%;display:inline-block}.samanta .dot{background:var(--sam)}.steve .dot{background:var(--ste)}.task{display:flex;align-items:flex-start;gap:9px;margin:8px 0;line-height:1.25;font-size:15px}.task input{width:24px;height:24px;margin:0;accent-color:var(--accent);flex:0 0 auto}.task label{padding-top:2px}.task.done label{text-decoration:line-through;color:var(--muted)}.empty{padding:18px;text-align:center;color:var(--muted)}.hint{font-size:13px;color:var(--muted);line-height:1.35;margin:8px 3px}.footer{margin:22px 0 0;color:var(--muted);font-size:13px;line-height:1.4}.file{display:none}@media(max-width:680px){body{padding:12px}.hero{border-radius:24px}.hero h1{font-size:27px}.people{grid-template-columns:1fr}.person:first-child{border-right:0;border-bottom:1px solid var(--line)}.toolbar{border-radius:20px}.row button{flex:1}.stats{grid-template-columns:1fr}.select{width:100%}}@media print{body{background:#fff;padding:0}.toolbar,.footer{display:none}.hero,.stat,.day{box-shadow:none}.day{break-inside:avoid}.wrap{max-width:none}.days{gap:8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+<div class="eyebrow">Offline nutzbar · lokale Haken je iPhone</div>
+<h1>Haushaltsplan 2026<br>Samanta & Steve</h1>
+<p>Aufgaben abhaken, Monat wechseln und den eigenen Stand auf dem iPhone speichern. Samanta und Steve nutzen denselben Plan, aber die Haken bleiben pro Gerät getrennt.</p>
+</section>
+<section class="toolbar" aria-label="Steuerung">
+<div class="row">
+<select id="month" class="select" aria-label="Monat wählen"></select>
+<button class="primary" id="todayBtn">Heute anzeigen</button>
+</div>
+<div class="row">
+<button class="ghost" id="exportBtn">Daten exportieren</button>
+<button class="ghost" id="importBtn">Daten importieren</button>
+<button class="danger" id="resetDayBtn">Heute zurücksetzen</button>
+<input class="file" id="importFile" type="file" accept="application/json">
+</div>
+<div class="hint">Hinweis: Ohne Login und Datenbank gibt es keine gemeinsame Synchronisierung. Jeder Haken wird nur auf dem jeweiligen iPhone gespeichert.</div>
+</section>
+<section class="stats">
+<div class="stat sam"><b>Samanta</b><span id="samStats" class="mini">0 von 0 erledigt</span><div class="bar"><div id="samFill" class="fill"></div></div></div>
+<div class="stat ste"><b>Steve</b><span id="steStats" class="mini">0 von 0 erledigt</span><div class="bar"><div id="steFill" class="fill"></div></div></div>
+</section>
+<h2 id="monthTitle" class="monthTitle"></h2>
+<section id="days" class="days"></section>
+<div class="footer">Erstellt für 2026. Speichert ausschließlich lokal im Browser über localStorage. Keine externen Bibliotheken, kein Tracking, keine Cookies.</div>
+</div>
+<script>
+(function(){
+'use strict';
+const year=2026; const key='haushaltsplan-2026-samanta-steve-v1';
+const names={sam:'Samanta',ste:'Steve'};
+const months=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+const weekdays=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+const base=['Bett machen','Küche kurz aufräumen','Geschirrspüler prüfen','Wohnzimmer kurz aufräumen','Müll prüfen','Oberflächen abwischen','Bad kurz kontrollieren','Einkaufsliste prüfen'];
+const weekly={
+1:['Wäsche starten','Bad gründlicher reinigen'],
+2:['Müll rausbringen','Küche Oberflächen reinigen'],
+3:['Saugen','Wäsche aufhängen oder zusammenlegen'],
+4:['Einkaufsliste und Vorräte prüfen','Wohnzimmer aufräumen'],
+5:['Boden kurz wischen','Papierkorb und Badmüll prüfen'],
+6:['Wocheneinkauf planen','Größere Wäsche erledigen','Saugen oder wischen'],
+0:['Nur kurzer Check','Alles für Montag vorbereiten']
+};
+let state=load(); let selectedMonth=(new Date().getFullYear()===year)?new Date().getMonth():0;
+const $=id=>document.getElementById(id);
+function load(){try{return JSON.parse(localStorage.getItem(key))||{}}catch(e){return{}}}
+function save(){localStorage.setItem(key,JSON.stringify(state))}
+function pad(n){return String(n).padStart(2,'0')}
+function iso(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function formatDate(d){return pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear()}
+function taskSet(date,person){
+ const day=date.getDay(), dayNo=date.getDate(), month=date.getMonth(); let arr=[];
+ const rotate=(dayNo+month+(person==='ste'?3:0))%base.length; arr.push(base[rotate]);
+ const w=weekly[day]||[]; if(w.length) arr.push(w[(dayNo+(person==='sam'?0:1))%w.length]);
+ if(day===6 && person==='sam') arr.push(dayNo%2?'Bad gründlicher reinigen':'Wäsche zusammenlegen');
+ if(day===6 && person==='ste') arr.push(dayNo%2?'Saugen':'Müll und Leergut prüfen');
+ if(day===0){arr=[person==='sam'?'Küche kurz checken':'Wohnzimmer kurz checken'];}
+ if(dayNo===1) arr.push('Monatsstart: Vorräte kurz prüfen');
+ if(dayNo===15) arr.push('Putzmittel und Haushaltssachen prüfen');
+ return [...new Set(arr)].slice(0, day===6?4:3);
+}
+function ownerFirst(date){return ((date.getDate()+date.getMonth())%2===0);}
+function tasksFor(date){
+ let sam=taskSet(date,'sam'), ste=taskSet(date,'ste');
+ if(!ownerFirst(date)){ const a=sam[0]; sam[0]=ste[0]; ste[0]=a; }
+ return {sam,ste};
+}
+function initMonths(){ $('month').innerHTML=months.map((m,i)=>`<option value="${i}">${m} 2026</option>`).join(''); $('month').value=selectedMonth; }
+function daysInMonth(m){return new Date(year,m+1,0).getDate()}
+function checked(id){return !!state[id]}
+function toggle(id,val){state[id]=val;if(!val) delete state[id];save();updateStats();}
+function render(){
+ $('month').value=selectedMonth; $('monthTitle').textContent=months[selectedMonth]+' 2026';
+ const box=$('days'); box.innerHTML=''; const todayIso=iso(new Date());
+ for(let day=1; day<=daysInMonth(selectedMonth); day++){
+   const d=new Date(year,selectedMonth,day); const idate=iso(d); const t=tasksFor(d); const el=document.createElement('article');
+   el.className='day'+(idate===todayIso?' today':''); el.id='d-'+idate;
+   el.innerHTML=`<div class="dayHead"><div class="date"><strong>${formatDate(d)}</strong><span>${weekdays[d.getDay()]}</span></div><div class="mini">${d.getDay()===0?'leichter Sonntag':d.getDay()===6?'Samstag mit Zusatzaufgaben':'Alltag'}</div></div><div class="people">${personBlock('sam',idate,t.sam)}${personBlock('ste',idate,t.ste)}</div>`;
+   box.appendChild(el);
+ }
+ wireChecks(); updateStats();
+}
+function personBlock(person,date,tasks){return `<div class="person ${person==='sam'?'samanta':'steve'}"><h3><span class="dot"></span>${names[person]}</h3>${tasks.map((task,i)=>{const id=`${date}-${person}-${i}`;return `<div class="task ${checked(id)?'done':''}"><input type="checkbox" id="${id}" data-id="${id}" ${checked(id)?'checked':''}><label for="${id}">${task}</label></div>`}).join('')}</div>`}
+function wireChecks(){document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>cb.addEventListener('change',e=>{const id=e.target.dataset.id; e.target.closest('.task').classList.toggle('done',e.target.checked); toggle(id,e.target.checked);}));}
+function updateStats(){
+ const totals={sam:0,ste:0}, done={sam:0,ste:0};
+ for(let m=0;m<12;m++){for(let day=1;day<=daysInMonth(m);day++){const d=new Date(year,m,day);const date=iso(d);const t=tasksFor(d);['sam','ste'].forEach(p=>{t[p].forEach((_,i)=>{totals[p]++; if(checked(`${date}-${p}-${i}`)) done[p]++;});});}}
+ ['sam','ste'].forEach(p=>{const pct=totals[p]?Math.round(done[p]/totals[p]*100):0; $(p+'Stats').textContent=`${done[p]} von ${totals[p]} erledigt · ${pct}%`; $(p+'Fill').style.width=pct+'%';});
+}
+function showToday(){const now=new Date(); if(now.getFullYear()!==year){selectedMonth=0; render(); window.scrollTo({top:0,behavior:'smooth'}); return;} selectedMonth=now.getMonth(); render(); setTimeout(()=>{const el=$('d-'+iso(now)); if(el) el.scrollIntoView({behavior:'smooth',block:'center'});},50)}
+function resetToday(){const now=new Date(); if(now.getFullYear()!==year){alert('Heute liegt nicht im Jahr 2026. Bitte wähle einen Tag im Plan manuell aus.'); return;} const date=iso(now); Object.keys(state).forEach(k=>{if(k.startsWith(date+'-')) delete state[k];}); save(); render();}
+function exportData(){const blob=new Blob([JSON.stringify({app:key,exported:new Date().toISOString(),checks:state},null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='haushaltsplan-2026-samanta-steve-daten.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),500);}
+function importData(file){const reader=new FileReader(); reader.onload=()=>{try{const data=JSON.parse(reader.result); state=data.checks||data||{}; save(); render(); alert('Daten wurden importiert.');}catch(e){alert('Import nicht möglich. Bitte JSON-Datei prüfen.');}}; reader.readAsText(file);}
+$('month').addEventListener('change',e=>{selectedMonth=Number(e.target.value);render();});
+$('todayBtn').addEventListener('click',showToday); $('resetDayBtn').addEventListener('click',resetToday); $('exportBtn').addEventListener('click',exportData); $('importBtn').addEventListener('click',()=>$('importFile').click()); $('importFile').addEventListener('change',e=>{if(e.target.files[0]) importData(e.target.files[0]); e.target.value='';});
+initMonths(); render();
+})();
+</script>
+</body>
+</html>
