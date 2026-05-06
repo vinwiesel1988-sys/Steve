@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f6f8fb">
-<title>Haushaltsplan 2026 Premium V20.9 – Samanta & Steve</title>
+<title>Haushaltsplan 2026 Premium V21.2 – Samanta & Steve</title>
 <style>
 :root{
   --bg:#15120f;
@@ -142,7 +142,7 @@ label.task.gardenTask:has(input:checked){
   h1{font-size:34px}
   .hero{padding:28px 20px;border-radius:32px}
   .hero:before{inset:9px;border-radius:24px}
-  .panel{position:sticky;top:8px;z-index:5;border-radius:26px}
+  .panel{position:relative;top:auto;z-index:auto;border-radius:26px}
   .stats{grid-template-columns:1fr}
   .people{grid-template-columns:1fr}
   .person:first-child{border-right:0;border-bottom:1px solid rgba(255,255,255,.48)}
@@ -309,8 +309,8 @@ body.eveningMode:before{background:linear-gradient(120deg,rgba(255,255,255,.08),
 </head>
 <body>
 <div class="wrap">
-<section class="hero"><div class="heroIcons">🏠 🧺 🧹 📅 ✨</div><div class="eyebrow">Premium V20.8 · offline nutzbar · Garten-Aufgaben zurück</div><h1><span id="dynamicGreeting">Haushaltsplan 2026</span><br>Samanta & Steve</h1><p>Ein moderner Jahresplan mit Premium-Komfort, sanften Animationen, Quick Actions und euren Garten-Aufgaben.</p></section>
-<section class="panel" aria-label="Steuerung"><div class="row"><select id="month" aria-label="Monat wählen"></select><button class="primary" id="todayBtn">📅 Heute</button></div><div class="row"><button class="danger" id="resetDayBtn">Heute zurücksetzen</button><input id="importFile" type="file" accept="application/json"></div><div class="hint">Hinweis: Ohne Login und Datenbank gibt es keine gemeinsame Synchronisierung. Jeder Haken wird nur auf dem jeweiligen iPhone gespeichert.</div><div class="summaryBox">System: tägliche Grundordnung, feste Wochenroutine, Garten-Aufgaben in der Saison und monatliche Tiefenreinigung. Sonntag bleibt bewusst leichter. Samanta ohne Arbeitszimmer, Steve mit Arbeitszimmer.</div></section>
+<section class="hero"><div class="heroIcons">🏠 🧺 🧹 📅 ✨</div><div class="eyebrow">Premium V21.2 · iPhone Scroll-Fix · offline nutzbar</div><h1><span id="dynamicGreeting">Haushaltsplan 2026</span><br>Samanta & Steve</h1><p>Ein moderner Jahresplan mit Premium-Komfort, sanften Animationen, Quick Actions und euren Garten-Aufgaben.</p></section>
+<section class="panel" aria-label="Steuerung"><div class="row"><select id="month" aria-label="Monat wählen"></select><button class="primary" id="todayBtn">📅 Heute</button></div><input id="importFile" type="file" accept="application/json"><div class="hint">Hinweis: Ohne Login und Datenbank gibt es keine gemeinsame Synchronisierung. Jeder Haken wird nur auf dem jeweiligen iPhone gespeichert.</div><div class="summaryBox">System: tägliche Grundordnung, feste Wochenroutine, Garten-Aufgaben in der Saison und monatliche Tiefenreinigung. Sonntag bleibt bewusst leichter. Samanta ohne Arbeitszimmer, Steve mit Arbeitszimmer.</div></section>
 <section class="todayWidget" aria-label="Heute Übersicht">
   <div class="widgetCard"><strong id="todayOpen">0</strong><span>Heute offen</span></div>
   <div class="widgetCard"><strong id="todayDone">0%</strong><span>Heute erledigt</span></div>
