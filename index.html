@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f6f8fb">
-<title>Haushaltsplan 2026 Premium V20.9 – Samanta & Steve</title>
+<title>Haushaltsplan 2026 Premium V22.4 – Samanta & Steve</title>
 <style>
 :root{
   --bg:#15120f;
@@ -306,11 +306,31 @@ body.eveningMode:before{background:linear-gradient(120deg,rgba(255,255,255,.08),
 @keyframes monthFade{from{opacity:.35;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:720px){.todayWidget{grid-template-columns:1fr 1fr}.todayWidget .widgetCard:last-child{grid-column:1 / -1}#topFab{right:14px;bottom:14px}}
 
+
+.stickyTopArea{
+position:relative;
+z-index:1;
+padding-top:0;
+background:transparent;
+backdrop-filter:none;
+-webkit-backdrop-filter:none;
+}
+
+
+/* V22.4: mehr Sichtfläche für Aufgaben */
+@media(max-width:720px){
+  .hero{margin-bottom:12px}
+  .panel{margin-bottom:10px}
+  .todayWidget{margin:10px 0 12px}
+  .monthTitle{margin:18px 0 12px}
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
-<section class="hero"><div class="heroIcons">🏠 🧺 🧹 📅 ✨</div><div class="eyebrow">Premium V20.8 · offline nutzbar · Garten-Aufgaben zurück</div><h1><span id="dynamicGreeting">Haushaltsplan 2026</span><br>Samanta & Steve</h1><p>Ein moderner Jahresplan mit Premium-Komfort, sanften Animationen, Quick Actions und euren Garten-Aufgaben.</p></section>
+<section class="hero"><div class="heroIcons">🏠 🧺 🧹 📅 ✨</div><div class="eyebrow">Premium V22.4 · mehr Platz für Aufgaben · offline nutzbar</div><h1><span id="dynamicGreeting">Haushaltsplan 2026</span><br>Samanta & Steve</h1><p>Ein moderner Jahresplan mit Premium-Komfort, sanften Animationen, Quick Actions und euren Garten-Aufgaben.</p></section>
+<div class="stickyTopArea">
 <section class="panel" aria-label="Steuerung"><div class="row"><select id="month" aria-label="Monat wählen"></select><button class="primary" id="todayBtn">📅 Heute</button></div><div class="row"><button class="danger" id="resetDayBtn">Heute zurücksetzen</button><input id="importFile" type="file" accept="application/json"></div><div class="hint">Hinweis: Ohne Login und Datenbank gibt es keine gemeinsame Synchronisierung. Jeder Haken wird nur auf dem jeweiligen iPhone gespeichert.</div><div class="summaryBox">System: tägliche Grundordnung, feste Wochenroutine, Garten-Aufgaben in der Saison und monatliche Tiefenreinigung. Sonntag bleibt bewusst leichter. Samanta ohne Arbeitszimmer, Steve mit Arbeitszimmer.</div></section>
 <section class="todayWidget" aria-label="Heute Übersicht">
   <div class="widgetCard"><strong id="todayOpen">0</strong><span>Heute offen</span></div>
@@ -333,6 +353,7 @@ body.eveningMode:before{background:linear-gradient(120deg,rgba(255,255,255,.08),
   <div class="awardBox" id="awardBox">Monatsauszeichnung erscheint automatisch bei hoher Erledigungsquote.</div>
 </section>
 <section class="stats"><div class="stat"><b>Samanta</b><span id="samStats" class="mini">0 von 0 erledigt · 0%</span><div class="bar"><div id="samFill" class="fill"></div></div></div><div class="stat"><b>Steve</b><span id="steStats" class="mini">0 von 0 erledigt · 0%</span><div class="bar"><div id="steFill" class="fill"></div></div></div></section>
+</div>
 <h2 id="monthTitle" class="monthTitle"></h2><section id="days"></section><div class="footer">Erstellt für 2026. Speichert ausschließlich lokal im Browser über localStorage. Keine externen Bibliotheken, kein Tracking, keine Cookies.</div></div>
 <button id="topFab" type="button" aria-label="Zurück nach oben">↑</button><div id="successToast">Starker Tag ✓</div>
 <script>
