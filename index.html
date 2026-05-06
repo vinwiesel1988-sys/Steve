@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f6f8fb">
-<title>Haushaltsplan 2026 Premium V21.2 – Samanta & Steve</title>
+<title>Haushaltsplan 2026 Premium V21.4 – Samanta & Steve</title>
 <style>
 :root{
   --bg:#15120f;
@@ -305,11 +305,51 @@ body.eveningMode:before{background:linear-gradient(120deg,rgba(255,255,255,.08),
 @keyframes monthFade{from{opacity:.35;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:720px){.todayWidget{grid-template-columns:1fr 1fr}.todayWidget .widgetCard:last-child{grid-column:1 / -1}#topFab{right:14px;bottom:14px}}
 
+
+/* V21.4 iPhone Kompakt-Fix: Premium-Leiste nimmt oben weniger Platz weg */
+.premiumPanel{
+  position:relative;
+}
+@media(max-width:720px){
+  .premiumPanel{
+    position:relative !important;
+    top:auto !important;
+    z-index:auto !important;
+    padding:10px;
+    border-radius:22px;
+    margin-bottom:12px;
+  }
+  .premiumPanel .filterBar{
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    gap:7px;
+    margin:0;
+    padding:1px 1px 4px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .premiumPanel .filterBar::-webkit-scrollbar{
+    display:none;
+  }
+  .premiumPanel .filterBtn{
+    width:auto;
+    min-width:max-content;
+    min-height:36px;
+    padding:8px 11px;
+    font-size:12px;
+  }
+  .premiumPanel .weekBox,
+  .premiumPanel .awardBox{
+    display:none;
+  }
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
-<section class="hero"><div class="heroIcons">🏠 🧺 🧹 📅 ✨</div><div class="eyebrow">Premium V21.2 · iPhone Scroll-Fix · offline nutzbar</div><h1><span id="dynamicGreeting">Haushaltsplan 2026</span><br>Samanta & Steve</h1><p>Ein moderner Jahresplan mit Premium-Komfort, sanften Animationen, Quick Actions und euren Garten-Aufgaben.</p></section>
+<section class="hero"><div class="heroIcons">🏠 🧺 🧹 📅 ✨</div><div class="eyebrow">Premium V21.4 · iPhone Kompakt-Fix · offline nutzbar</div><h1><span id="dynamicGreeting">Haushaltsplan 2026</span><br>Samanta & Steve</h1><p>Ein moderner Jahresplan mit Premium-Komfort, sanften Animationen, Quick Actions und euren Garten-Aufgaben.</p></section>
 <section class="panel" aria-label="Steuerung"><div class="row"><select id="month" aria-label="Monat wählen"></select><button class="primary" id="todayBtn">📅 Heute</button></div><input id="importFile" type="file" accept="application/json"><div class="hint">Hinweis: Ohne Login und Datenbank gibt es keine gemeinsame Synchronisierung. Jeder Haken wird nur auf dem jeweiligen iPhone gespeichert.</div><div class="summaryBox">System: tägliche Grundordnung, feste Wochenroutine, Garten-Aufgaben in der Saison und monatliche Tiefenreinigung. Sonntag bleibt bewusst leichter. Samanta ohne Arbeitszimmer, Steve mit Arbeitszimmer.</div></section>
 <section class="todayWidget" aria-label="Heute Übersicht">
   <div class="widgetCard"><strong id="todayOpen">0</strong><span>Heute offen</span></div>
@@ -318,7 +358,7 @@ body.eveningMode:before{background:linear-gradient(120deg,rgba(255,255,255,.08),
   <div class="widgetCard"><strong id="weekDone">0%</strong><span>Diese Woche</span></div>
   <div class="widgetCard"><strong id="monthDone">0%</strong><span>Dieser Monat</span></div>
 </section>
-<section class="panel" aria-label="Premium Funktionen">
+<section class="panel premiumPanel" aria-label="Premium Funktionen">
   <div class="filterBar">
     <button class="filterBtn active" data-filter="all">Alle Aufgaben</button>
     <button class="filterBtn" data-filter="open">Nur offene</button>
@@ -599,7 +639,7 @@ if(typeof render === "function"){
     const g=document.getElementById("dynamicGreeting");
     if(!g) return;
     const h=new Date().getHours();
-    const text=h<11?"Guten Morgen":h<17?"Guten Tag":h<22?"Guten Abend":"Gute Nacht";
+    const text=h<11?"Guten Morgen":h<17?"Hallo":h<22?"Guten Abend":"Gute Nacht";
     g.textContent=text;
     document.body.classList.toggle("eveningMode", h>=19 || h<6);
   }
