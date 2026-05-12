@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f6f8fb">
-<title>Haushaltsplan 2026 Premium V23 Firebase Sync – Samanta & Steve</title>
+<title>Haushaltsplan 2026 Premium V24.1 Firebase Sync – Samanta & Steve</title>
 <style>
 :root{
   --bg:#15120f;
@@ -85,7 +85,7 @@ input[type=file]{display:none}
 #steFill{background:linear-gradient(90deg,var(--ste),#65bcb1)}
 .monthTitle{font-size:31px;letter-spacing:-.04em;margin:28px 0 15px;display:flex;align-items:center;gap:12px;color:var(--deep);text-shadow:0 1px 0 rgba(255,255,255,.28)}
 .monthTitle:before{content:"";width:15px;height:42px;border-radius:99px;background:linear-gradient(180deg,var(--accent),var(--accent2));box-shadow:0 14px 28px var(--glow)}
-.day{position:relative;background:var(--surface);border:1px solid rgba(255,255,255,.60);border-radius:32px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow2);transition:box-shadow .18s ease,transform .18s ease}
+.day{scroll-margin-top:16px;position:relative;background:var(--surface);border:1px solid rgba(255,255,255,.60);border-radius:32px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow2);transition:box-shadow .18s ease,transform .18s ease}
 .day:hover{box-shadow:0 24px 60px rgba(28,18,10,.20);transform:translateY(-1px)}
 .day.today{border-color:rgba(255,255,255,.86);box-shadow:0 28px 78px var(--glow)}
 .day.today:before{content:"Heute";position:absolute;z-index:2;right:15px;top:15px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:11px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:6px 10px;box-shadow:0 10px 24px var(--glow)}
@@ -330,7 +330,7 @@ backdrop-filter:none;
 </head>
 <body>
 <div class="wrap">
-<section class="hero"><div class="heroIcons">🏠 🧺 🧹 📅 ✨</div><div class="eyebrow">Premium V23 · Live-Sync mit Firebase</div><h1><span id="dynamicGreeting">Haushaltsplan 2026</span><br>Samanta & Steve</h1><p>Ein moderner Jahresplan mit Live-Synchronisierung für Samanta und Steve, Premium-Komfort, Quick Actions und euren Garten-Aufgaben.</p></section>
+<section class="hero"><div class="heroIcons">🏠 🧺 🧹 📅 ✨</div><div class="eyebrow">Premium V24.1 · Live-Sync mit Firebase</div><h1><span id="dynamicGreeting">Haushaltsplan 2026</span><br>Samanta & Steve</h1><p>Ein moderner Jahresplan mit Live-Synchronisierung für Samanta und Steve, Premium-Komfort, Quick Actions und euren Garten-Aufgaben.</p></section>
 <div class="stickyTopArea">
 <section class="panel" aria-label="Steuerung"><div class="row"><select id="month" aria-label="Monat wählen"></select><button class="primary" id="todayBtn">📅 Heute</button></div><div class="row"><button class="danger" id="resetDayBtn">Heute zurücksetzen</button><input id="importFile" type="file" accept="application/json"></div><div class="hint">Status: <span id="syncStatus">Firebase wird vorbereitet …</span></div><div class="summaryBox">System: tägliche Grundordnung, feste Wochenroutine, Garten-Aufgaben in der Saison und monatliche Tiefenreinigung. Sonntag bleibt bewusst leichter. Samanta ohne Arbeitszimmer, Steve mit Arbeitszimmer.</div></section>
 <section class="todayWidget" aria-label="Heute Übersicht">
@@ -375,13 +375,13 @@ const DEVICE_ID_KEY = STORE_KEY + "_device";
   4. Datei speichern und bei GitHub neu hochladen
 */
 const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyCMnOSbdPl2LWE6a213c_HpLVFaciaIdus",
-  authDomain: "haushaltsplan2026.firebaseapp.com",
-  databaseURL: "https://haushaltsplan2026-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "haushaltsplan2026",
-  storageBucket: "haushaltsplan2026.appspot.com",
-  messagingSenderId: "208430578380",
-  appId: "1:208430578380:web:5e42f85706e3d9a1eea069"
+  apiKey: "HIER_EINTRAGEN",
+  authDomain: "HIER_EINTRAGEN",
+  databaseURL: "HIER_EINTRAGEN",
+  projectId: "HIER_EINTRAGEN",
+  storageBucket: "HIER_EINTRAGEN",
+  messagingSenderId: "HIER_EINTRAGEN",
+  appId: "HIER_EINTRAGEN"
 };
 const FIREBASE_SYNC_PATH = "haushaltsplan_2026/samanta_steve/live";
 
@@ -473,10 +473,32 @@ window.addEventListener("offline",()=>setSyncStatus("Offline, lokal gespeichert"
 function initMonths(){const select=document.getElementById("month");MONTHS.forEach((m,i)=>{const opt=document.createElement("option");opt.value=String(i+1);opt.textContent=m+" 2026";select.appendChild(opt)});const now=new Date();select.value=now.getFullYear()===2026?String(now.getMonth()+1):"1";select.addEventListener("change",render)}
 function renderTasks(container,day,person,tasks,options={}){tasks.forEach((text,idx)=>{const label=document.createElement("label");label.className=options.className?"task "+options.className:"task";const taskPerson=options.personKey||person;const cb=document.createElement("input");cb.type="checkbox";cb.checked=isChecked(day.id,taskPerson,idx,text);const span=document.createElement("span");span.textContent=text;if(cb.checked)span.className="doneText";cb.addEventListener("change",()=>{span.className=cb.checked?"doneText":"";setChecked(day.id,taskPerson,idx,text,cb.checked)});label.appendChild(cb);label.appendChild(span);container.appendChild(label)})}
 function renderGardenTasks(container,day,person){const block=document.createElement("div");block.className="gardenBlock";block.innerHTML=`<div class="gardenTitle">🌿 Garten</div>`;renderTasks(block,day,person,GARDEN_TASKS,{className:"gardenTask",personKey:person+"Garden"});container.appendChild(block)}
-function render(){const month=Number(document.getElementById("month").value);document.body.dataset.month=String(month);document.getElementById("monthTitle").textContent=MONTHS[month-1]+" 2026";const root=document.getElementById("days");root.innerHTML="";PLAN.filter(d=>d.month===month).forEach(day=>{const card=document.createElement("article");card.className="day";if(day.id===new Date().toISOString().slice(0,10))card.classList.add("today");const head=document.createElement("div");head.className="dayHead";const icon=day.tag==="Wochenreinigung"?"◆":day.tag==="Sonntag leicht"?"○":"●";head.innerHTML=`<div><div class="date">${day.date}</div><div class="weekday">${day.weekday}</div></div><div class="tag ${day.tag==="Sonntag leicht"?"sundayTag":""}">${icon} ${day.tag}</div>`;card.appendChild(head);const people=document.createElement("div");people.className="people";const sam=document.createElement("div");sam.className="person";sam.innerHTML=`<div class="name"><span class="dot sam"></span>Samanta</div>`;renderTasks(sam,day,"sam",day.sam);renderGardenTasks(sam,day,"sam");const ste=document.createElement("div");ste.className="person";ste.innerHTML=`<div class="name"><span class="dot ste"></span>Steve</div>`;renderTasks(ste,day,"ste",day.ste);renderGardenTasks(ste,day,"ste");people.appendChild(sam);people.appendChild(ste);card.appendChild(people);root.appendChild(card)});updateStats()}
+function render(){const month=Number(document.getElementById("month").value);document.body.dataset.month=String(month);document.getElementById("monthTitle").textContent=MONTHS[month-1]+" 2026";const root=document.getElementById("days");root.innerHTML="";PLAN.filter(d=>d.month===month).forEach(day=>{const card=document.createElement("article");card.className="day";card.dataset.dateId=day.id;if(day.id===currentDateId())card.classList.add("today");const head=document.createElement("div");head.className="dayHead";const icon=day.tag==="Wochenreinigung"?"◆":day.tag==="Sonntag leicht"?"○":"●";head.innerHTML=`<div><div class="date">${day.date}</div><div class="weekday">${day.weekday}</div></div><div class="tag ${day.tag==="Sonntag leicht"?"sundayTag":""}">${icon} ${day.tag}</div>`;card.appendChild(head);const people=document.createElement("div");people.className="people";const sam=document.createElement("div");sam.className="person";sam.innerHTML=`<div class="name"><span class="dot sam"></span>Samanta</div>`;renderTasks(sam,day,"sam",day.sam);renderGardenTasks(sam,day,"sam");const ste=document.createElement("div");ste.className="person";ste.innerHTML=`<div class="name"><span class="dot ste"></span>Steve</div>`;renderTasks(ste,day,"ste",day.ste);renderGardenTasks(ste,day,"ste");people.appendChild(sam);people.appendChild(ste);card.appendChild(people);root.appendChild(card)});updateStats()}
 function updateStats(){const month=Number(document.getElementById("month").value);let samTotal=0,samDone=0,steTotal=0,steDone=0;PLAN.filter(d=>d.month===month).forEach(day=>{day.sam.forEach((t,i)=>{samTotal++;if(isChecked(day.id,"sam",i,t))samDone++});GARDEN_TASKS.forEach((t,i)=>{samTotal++;if(isChecked(day.id,"samGarden",i,t))samDone++});day.ste.forEach((t,i)=>{steTotal++;if(isChecked(day.id,"ste",i,t))steDone++});GARDEN_TASKS.forEach((t,i)=>{steTotal++;if(isChecked(day.id,"steGarden",i,t))steDone++})});const samPct=samTotal?Math.round(samDone/samTotal*100):0;const stePct=steTotal?Math.round(steDone/steTotal*100):0;document.getElementById("samStats").textContent=`${samDone} von ${samTotal} erledigt · ${samPct}%`;document.getElementById("steStats").textContent=`${steDone} von ${steTotal} erledigt · ${stePct}%`;document.getElementById("samFill").style.width=samPct+"%";document.getElementById("steFill").style.width=stePct+"%"}
-document.getElementById("todayBtn").addEventListener("click",()=>{const now=new Date();if(now.getFullYear()===2026){document.getElementById("month").value=String(now.getMonth()+1);render();const id=now.toISOString().slice(0,10);const cards=[...document.querySelectorAll(".day")];const dayIndex=PLAN.filter(d=>d.month===now.getMonth()+1).findIndex(d=>d.id===id);if(cards[dayIndex])cards[dayIndex].scrollIntoView({behavior:"smooth",block:"center"})}else alert("Heute liegt nicht im Jahr 2026. Du kannst den Monat manuell auswählen.")});
-document.getElementById("resetDayBtn").addEventListener("click",()=>{const now=new Date();const id=now.getFullYear()===2026?now.toISOString().slice(0,10):null;if(!id)return alert("Heute liegt nicht im Jahr 2026.");if(!confirm("Alle Haken für heute bei euch beiden löschen?"))return;Object.keys(state).forEach(k=>{if(k.startsWith(id+"|"))delete state[k]});Object.keys(extraState).forEach(k=>{if(k.includes("_"+id))delete extraState[k]});saveState();saveExtraState();render()});
+function scrollToDateId(dateId){
+  const target = document.querySelector(`.day[data-date-id="${dateId}"]`);
+  if(!target) return;
+  // V24.3: direkt das echte Tages-Element ansteuern, ohne eigene Höhenberechnung.
+  // Die alte Berechnung konnte auf großen iMac-Ansichten einen Tag zu früh stehen bleiben.
+  target.scrollIntoView({behavior:"auto", block:"start", inline:"nearest"});
+  setTimeout(()=>{
+    const checkTarget = document.querySelector(`.day[data-date-id="${dateId}"]`);
+    if(!checkTarget) return;
+    const top = checkTarget.getBoundingClientRect().top + window.pageYOffset - 16;
+    if(Math.abs(checkTarget.getBoundingClientRect().top - 16) > 80){
+      window.scrollTo({top: Math.max(top,0), behavior:"auto"});
+    }
+  },80);
+}
+document.getElementById("todayBtn").addEventListener("click",()=>{
+  const id = currentDateId();
+  const today = PLAN.find(d=>d.id===id);
+  if(!today) return alert("Heute liegt nicht im Jahr 2026. Du kannst den Monat manuell auswählen.");
+  document.getElementById("month").value = String(today.month);
+  render();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>scrollToDateId(id)));
+});
+document.getElementById("resetDayBtn").addEventListener("click",()=>{const now=new Date();const id=now.getFullYear()===2026?currentDateId():null;if(!id)return alert("Heute liegt nicht im Jahr 2026.");if(!confirm("Alle Haken für heute bei euch beiden löschen?"))return;Object.keys(state).forEach(k=>{if(k.startsWith(id+"|"))delete state[k]});Object.keys(extraState).forEach(k=>{if(k.includes("_"+id))delete extraState[k]});saveState();saveExtraState();render()});
 const importBtn=document.getElementById("importBtn"); if(importBtn){importBtn.addEventListener("click",()=>document.getElementById("importFile").click());}
 document.getElementById("importFile").addEventListener("change",async(e)=>{const file=e.target.files[0];if(!file)return;try{const text=await file.text();const imported=JSON.parse(text);if(typeof imported!=="object"||Array.isArray(imported))throw new Error("Ungültig");if(confirm("Importierte Daten übernehmen und live synchronisieren?")){state=imported;saveState();render()}}catch(err){alert("Die Datei konnte nicht importiert werden.")}e.target.value=""});
 initMonths();render();initFirebaseSync();
@@ -518,11 +540,14 @@ function dayProgress(day){
   const done = ids.filter(x => isChecked(day.id, x.person, x.index, x.text)).length;
   return {done,total,pct:total ? Math.round(done/total*100) : 0};
 }
+function pad2(n){return String(n).padStart(2,"0")}
 function currentDateId(){
-  const d = new Date();
-  const y = d.getFullYear();
-  if(y !== 2026) return "2026-01-01";
-  return `${y}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  // V24.3: Heute wird ausschließlich aus dem lokalen Gerätekalender gelesen.
+  // Kein UTC und keine externe Zeitzonen-Umrechnung, damit iMac und iPhone am echten lokalen Tag landen.
+  const now = new Date();
+  const y = now.getFullYear();
+  if(y !== 2026) return null;
+  return `${y}-${pad2(now.getMonth()+1)}-${pad2(now.getDate())}`;
 }
 function weekRangeFor(dateId){
   const [y,m,d] = dateId.split("-").map(Number);
